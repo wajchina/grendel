@@ -35,6 +35,8 @@ build:
 		bin-x86_64-efi/ipxe.efi \
 		bin-x86_64-efi/snponly.efi \
 		bin-i386-efi/ipxe.efi \
+		EMBED=../../boot.ipxe &&\
+	make CROSS=aarch64-linux-gnu- bin-arm64-efi/ipxe.efi \
 		EMBED=../../boot.ipxe)
 
 .PHONY: build-with-ca
@@ -56,6 +58,9 @@ build-with-ca:
 		bin-x86_64-efi/snponly.efi \
 		bin-i386-efi/ipxe.efi \
 		CERT=../../../out/GrendelCA.crt TRUST=../../../out/GrendelCA.crt \
+		EMBED=../../boot.ipxe &&\
+	make CROSS=aarch64-linux-gnu- bin-arm64-efi/ipxe.efi \
+		CERT=../../../out/GrendelCA.crt TRUST=../../../out/GrendelCA.crt \
 		EMBED=../../boot.ipxe)
 
 .PHONY: bindata
@@ -66,6 +71,7 @@ bindata:
 	mv -f ipxe/src/bin-x86_64-efi/ipxe.efi bin/ipxe-x86_64.efi
 	mv -f ipxe/src/bin-x86_64-efi/snponly.efi bin/snponly-x86_64.efi
 	mv -f ipxe/src/bin-i386-efi/ipxe.efi bin/ipxe-i386.efi
+    mv -f ipxe/src/bin-arm64-efi/ipxe.efi bin/ipxe-arm64.efi
 
 .PHONY: clean
 clean:

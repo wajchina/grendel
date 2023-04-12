@@ -30,6 +30,7 @@ const (
 	IPXE Build = iota + 1
 	EFI386
 	EFI64
+	ARMEFI64
 	SNPONLY
 	UNDI
 	GRENDEL
@@ -44,6 +45,9 @@ var efi386Bin []byte
 //go:embed bin/ipxe-x86_64.efi
 var efi64Bin []byte
 
+//go:embed bin/ipxe-arm64.efi
+var armefi64Bin []byte
+
 //go:embed bin/snponly-x86_64.efi
 var snpBin []byte
 
@@ -52,11 +56,12 @@ var undiBin []byte
 
 // buildToStringMap maps a Build to a binary build name
 var buildToStringMap = map[Build]string{
-	IPXE:    "ipxe.pxe",
-	EFI386:  "ipxe-i386.efi",
-	EFI64:   "ipxe-x86_64.efi",
-	SNPONLY: "snponly-x86_64.efi",
-	UNDI:    "undionly.kpxe",
+	IPXE:     "ipxe.pxe",
+	EFI386:   "ipxe-i386.efi",
+	EFI64:    "ipxe-x86_64.efi",
+	ARMEFI64: "ipxe-arm64.efi",
+	SNPONLY:  "snponly-x86_64.efi",
+	UNDI:     "undionly.kpxe",
 }
 
 func NewFromString(b string) Build {
@@ -89,6 +94,8 @@ func (b Build) ToBytes() []byte {
 		return efi386Bin
 	case EFI64:
 		return efi64Bin
+	case ARMEFI64:
+		return armefi64Bin
 	case SNPONLY:
 		return snpBin
 	case UNDI:
@@ -115,6 +122,8 @@ func DetectBuild(archs iana.Archs, userClass string) (Build, error) {
 		build = EFI386
 	case iana.EFI_BC, iana.EFI_X86_64:
 		build = EFI64
+	case iana.EFI_ARM64:
+		build = ARMEFI64
 	default:
 		return build, fmt.Errorf("Unsupported Client System Architecture Type: %d", arch)
 	}
