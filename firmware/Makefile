@@ -71,7 +71,7 @@ bindata:
 	mv -f ipxe/src/bin-x86_64-efi/ipxe.efi bin/ipxe-x86_64.efi
 	mv -f ipxe/src/bin-x86_64-efi/snponly.efi bin/snponly-x86_64.efi
 	mv -f ipxe/src/bin-i386-efi/ipxe.efi bin/ipxe-i386.efi
-    mv -f ipxe/src/bin-arm64-efi/ipxe.efi bin/ipxe-arm64.efi
+	mv -f ipxe/src/bin-arm64-efi/ipxe.efi bin/ipxe-arm64.efi
 
 .PHONY: clean
 clean:
